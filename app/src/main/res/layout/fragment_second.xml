@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F1F1F1"
+    android:background="@drawable/forest"
     tools:context=".SecondFragment">
 
     <EditText
@@ -30,7 +30,7 @@
         android:id="@+id/button_input"
         android:layout_width="317dp"
         android:layout_height="65dp"
-        android:background="#8BC34A"
+        android:background="#FFEB3B"
         android:text="@string/input"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +42,7 @@
         android:id="@+id/button_back"
         android:layout_width="317dp"
         android:layout_height="65dp"
-        android:background="#F44336"
+        android:background="#9C27B0"
         android:text="@string/back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
