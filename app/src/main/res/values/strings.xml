@@ -12,4 +12,8 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="input">Save New Entry</string>
     <string name="back">Return</string>
+    <string name="entryname">Entry 1</string>
+    <string name="entrydate">01.02.2020</string>
+    <string name="entryaddress">Hallituskatu 1</string>
+    <string name="entrybody">This is the first entry in the GeoDiary</string>
 </resources>
