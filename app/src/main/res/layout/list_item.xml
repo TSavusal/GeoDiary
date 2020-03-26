@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:paddingLeft="16dp"
-        android:text="@string/EntryName"
+        android:text="@string/entryname"
         android:textColor="#020202"
         android:textSize="16sp"
         android:textStyle="bold" />
@@ -24,14 +24,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:paddingLeft="16dp"
-        android:text="@string/EntryDate" />
+        android:text="@string/entrydate" />
 
     <TextView
         android:layout_width="124dp"
         android:layout_height="30dp"
         android:layout_gravity="left"
         android:paddingLeft="16dp"
-        android:text="@string/EntryAddress" />
+        android:text="@string/entryaddress" />
 
     <TextView
         android:id="@+id/textView"
@@ -40,5 +40,5 @@
         android:background="#FFFFFF"
         android:paddingVertical="10dp"
         android:paddingLeft="16dp"
-        android:text="@string/EntryBody" />
+        android:text="@string/entrybody" />
 </LinearLayout>

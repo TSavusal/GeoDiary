@@ -16,4 +16,5 @@
     <string name="entrydate">01.02.2020</string>
     <string name="entryaddress">Hallituskatu 1</string>
     <string name="entrybody">This is the first entry in the GeoDiary</string>
+    <string name="entrylist">Previous Entries</string>
 </resources>
