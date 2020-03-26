@@ -52,4 +52,9 @@ class ThirdFragment : Fragment() {
     companion object {
         fun newInstance(): ThirdFragment = ThirdFragment()
     }
+
+    fun main(args: Array<String>){
+        val EntryMutable = mutableListOf<String>("Entry1","Hallituskatu", "01.01.2020", "Ok");
+        EntryMutable.add()
+    }
 }
