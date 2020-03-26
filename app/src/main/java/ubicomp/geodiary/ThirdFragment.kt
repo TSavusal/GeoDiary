@@ -22,6 +22,7 @@ class ThirdFragment : Fragment() {
         Listitementry("Entry 5", "Isokatu 4", "13.02.2020", "This is the fifth entry in the GeoDiary" ),
         Listitementry("Entry 6", "Aleksanterinkatu 15", "20.02.2020", "All the shops were closed here when I was here" )
     )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true

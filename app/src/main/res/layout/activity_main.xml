@@ -10,8 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#2196F3"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        >
+        android:theme="@style/AppTheme.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -19,10 +18,13 @@
             android:layout_height="?attr/actionBarSize"
             android:background="#2196F3"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <include
-        layout="@layout/content_main" />
+        layout="@layout/content_main"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

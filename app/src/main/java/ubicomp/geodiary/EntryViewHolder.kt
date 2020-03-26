@@ -15,8 +15,8 @@ class EntryViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
 
     init {
         mEntryNameView = itemView.findViewById(R.id.list_title)
-        mEntryDateView = itemView.findViewById(R.id.list_description)
-        mEntryNameView = itemView.findViewById(R.id.list_description)
+        mEntryDateView = itemView.findViewById(R.id.list_date)
+        mEntryAddressView = itemView.findViewById(R.id.list_address)
         mEntryBodyView = itemView.findViewById(R.id.list_description)
     }
 
