@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_third.*
 
-data class Listitementry(val entryname: String, val entryaddress: String, val entrydate: String, val entrybody: String)
+data class Listitementry(var entryname: String, var entryaddress: String, var entrydate: String, var entrybody: String)
 
 class ThirdFragment : Fragment() {
 
@@ -51,10 +51,5 @@ class ThirdFragment : Fragment() {
 
     companion object {
         fun newInstance(): ThirdFragment = ThirdFragment()
-    }
-
-    fun main(args: Array<String>){
-        val EntryMutable = mutableListOf<String>("Entry1","Hallituskatu", "01.01.2020", "Ok");
-        EntryMutable.add()
     }
 }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import android.widget.Button
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_first.*
@@ -39,6 +40,9 @@ class FirstFragment : Fragment() {
         }
         view.findViewById<Button>(R.id.button_entrylist).setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_ThirdFragment)
+        }
+        view.findViewById<Button>(R.id.button_exit).setOnClickListener {
+            System.exit(0);
         }
     }
 }
