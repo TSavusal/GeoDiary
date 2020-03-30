@@ -29,9 +29,9 @@ class SecondFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        //Todo: Implement text save
         view.findViewById<EditText>(R.id.EditEntry)
-
+        //Todo: implement save_input that saves text + address from latitude & longitude
         view.findViewById<Button>(R.id.button_save_input).setOnClickListener {
             val geocoder: Geocoder
             val latitude = 0.0
