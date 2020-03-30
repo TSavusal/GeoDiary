@@ -18,4 +18,5 @@
     <string name="entrybody">This is the first entry in the GeoDiary</string>
     <string name="entrylist">Previous Entries</string>
     <string name="title_activity_maps">Map</string>
+    <string name="button_get_location">Get Location</string>
 </resources>

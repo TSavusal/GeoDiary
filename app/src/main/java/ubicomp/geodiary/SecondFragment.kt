@@ -32,18 +32,25 @@ class SecondFragment : Fragment() {
 
         view.findViewById<EditText>(R.id.EditEntry)
 
-        view.findViewById<Button>(R.id.button_input).setOnClickListener {
-            val EntryText = EditEntry.text
+        view.findViewById<Button>(R.id.button_save_input).setOnClickListener {
+            val geocoder: Geocoder
+            val latitude = 0.0
+            val longitude = 0.0
+            val addresses: List<Address>
+            geocoder = Geocoder(getContext(), Locale.getDefault())
+            // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+            addresses = geocoder.getFromLocation(
+                latitude, longitude, 1
+            )
+            // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+            val address: String = addresses[0].getAddressLine(0)
+            val city: String = addresses[0].getLocality()
+            val state: String = addresses[0].getAdminArea()
+            val country: String = addresses[0].getCountryName()
+            val postalCode: String = addresses[0].getPostalCode()
+            val knownName: String = addresses[0].getFeatureName() // Only if available else return NULL
 
-            val gcd = Geocoder(context, Locale.getDefault())
-            var lng = 0.0
-            var lat = 0.0
-            val addresses: List<Address> = gcd.getFromLocation(lat, lng, 1)
-            if (addresses.size > 0) {
-                System.out.println(addresses[0].getLocality())
-            } else {
-                // do your stuff
-            }
+            val EntryText = EditEntry.text
         }
 
         view.findViewById<Button>(R.id.button_back).setOnClickListener {
