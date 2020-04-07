@@ -18,7 +18,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.room.Room
+//import androidx.room.Room
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -34,11 +34,12 @@ class MainActivity : AppCompatActivity() {
     val PERMISSION_ID = 59
     //declare a variable  mFusedLocationClient
     lateinit var mFusedLocationClient: FusedLocationProviderClient
-
+/*
     val db = Room.databaseBuilder(
         applicationContext,
         AppDatabase::class.java, "entry-list.db").build()
 
+ */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -94,7 +95,7 @@ class MainActivity : AppCompatActivity() {
             Looper.myLooper()
         )
     }
-
+/*
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             var mLastLocation: Location = locationResult.lastLocation
@@ -102,6 +103,8 @@ class MainActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.lonTextView).text = mLastLocation.longitude.toString()
         }
     }
+
+ */
     //Check status of location settings
     private fun isLocationEnabled(): Boolean {
         var locationManager: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
