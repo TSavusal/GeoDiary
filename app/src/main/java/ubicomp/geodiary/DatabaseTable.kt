@@ -1,6 +1,5 @@
 package ubicomp.geodiary
 
-//TO DO: room-importti kuntoon
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -8,18 +7,20 @@ import androidx.room.*
 
 @Entity(tableName = "entries")
 data class Entry(
-    @PrimaryKey(autoGenerate = true) var uid: Int?,
     @ColumnInfo(name = "location") var location: String?,
+    @ColumnInfo(name = "entrytext") var entrytext: String,
     //@ColumnInfo(name = "time") var time: Long?,
-    @ColumnInfo(name = "entrytext") var entrytext: String
+    @PrimaryKey(autoGenerate = true) var uid: Int?
 )
 
 @Dao
-interface EntryDAO {
+interface EntryDao {
     @Transaction @Insert
-    fun insert(entry: Entry)
+    fun insert(entry: Entry): Long
 
-    //TO DO: -->value: "SELECT * FROM entries"
+    @Query("DELETE FROM entries WHERE uid = :id")
+    fun delete(id: Int)
+
     @Query("SELECT * FROM entries")
     fun getEntries(): List<Entry>
 }

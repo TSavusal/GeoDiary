@@ -90,10 +90,11 @@ class MainActivity : AppCompatActivity() {
         mLocationRequest.numUpdates = 1
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        /*
         mFusedLocationClient!!.requestLocationUpdates(
             mLocationRequest, mLocationCallback,
             Looper.myLooper()
-        )
+        )*/
     }
 /*
     private val mLocationCallback = object : LocationCallback() {
