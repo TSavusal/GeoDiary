@@ -27,6 +27,18 @@
         app:layout_constraintVertical_bias="0.17" />
 
     <Button
+        android:id="@+id/button_get_location"
+        android:layout_width="295dp"
+        android:layout_height="65dp"
+        android:background="#5936F4"
+        android:text="@string/button_get_location"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.30"/>
+
+    <Button
         android:id="@+id/button_add_entry"
         android:layout_width="295dp"
         android:layout_height="65dp"
@@ -51,18 +63,6 @@
         app:layout_constraintVertical_bias="0.95" />
 
     <Button
-        android:id="@+id/button_get_location"
-        android:layout_width="295dp"
-        android:layout_height="65dp"
-        android:background="#5936F4"
-        android:text="@string/button_get_location"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_first"
-        app:layout_constraintVertical_bias="0.12" />
-
-    <Button
         android:id="@+id/button_entrylist"
         android:layout_width="295dp"
         android:layout_height="65dp"
@@ -75,6 +75,7 @@
         app:layout_constraintVertical_bias="0.80" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -82,17 +83,19 @@
 
         <TextView
             android:id="@+id/latTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="295dp"
             android:layout_height="wrap_content"
+            android:background="#FFFF"
             android:text="Latitude: "
             android:textColor="#000000"
             android:textSize="30sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/lonTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="295dp"
             android:layout_height="wrap_content"
+            android:background="#FFFF"
             android:text="Longitude: "
             android:textColor="#000000"
             android:textSize="30sp"
