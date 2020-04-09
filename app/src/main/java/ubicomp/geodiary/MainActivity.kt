@@ -91,7 +91,6 @@ class MainActivity : AppCompatActivity() {
             Looper.myLooper()
         )*/
     }
-/*
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             var mLastLocation: Location = locationResult.lastLocation
@@ -100,7 +99,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
- */
     //Check status of location settings
     private fun isLocationEnabled(): Boolean {
         var locationManager: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
