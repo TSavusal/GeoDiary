@@ -15,7 +15,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.Room.*
+import androidx.room.*
+import androidx.room.Room
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -29,12 +30,14 @@ class MainActivity : AppCompatActivity() {
     //PERMISSION_ID used to identify user action with permission request.
     //PERMISSION_ID = Any unique value
     val PERMISSION_ID = 59
+
     //declare a variable  mFusedLocationClient
     lateinit var mFusedLocationClient: FusedLocationProviderClient
 
     val db = Room.databaseBuilder(
         applicationContext,
-        AppDatabase::class.java, "entry-list.db").build()
+        AppDatabase::class.java, "entry-list.db"
+    ).build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +63,8 @@ class MainActivity : AppCompatActivity() {
                     } else {
                         //print lat and long to front page
                         findViewById<TextView>(R.id.latTextView).text = location.latitude.toString()
-                        findViewById<TextView>(R.id.lonTextView).text = location.longitude.toString()
+                        findViewById<TextView>(R.id.lonTextView).text =
+                            location.longitude.toString()
                         val SharedLatitude = location.latitude
                         val SharedLongitude = location.longitude
                     }
@@ -76,6 +80,7 @@ class MainActivity : AppCompatActivity() {
             requestPermissions()
         }
     }
+
     //Ignore specified warning "MissingPermission"
     @SuppressLint("MissingPermission")
     private fun requestNewLocationData() {
@@ -102,30 +107,48 @@ class MainActivity : AppCompatActivity() {
 
     //Check status of location settings
     private fun isLocationEnabled(): Boolean {
-        var locationManager: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        var locationManager: LocationManager =
+            getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
             LocationManager.NETWORK_PROVIDER
         )
     }
+
     //Check permission for ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION
     private fun checkPermissions(): Boolean {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
             &&
-            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+            ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
         ) {
             return true
         }
         return false
     }
+
     //Request necessary permissions if not granted
     private fun requestPermissions() {
-        ActivityCompat.requestPermissions(this,
-            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ),
             PERMISSION_ID
         )
     }
+
     //Called when requested permissions are allowed or denied, getLastLocation() if allowed.
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         if (requestCode == PERMISSION_ID) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 // Granted, get location information
@@ -134,6 +157,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+/**
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     lateinit var mGoogleMap: GoogleMap
@@ -168,7 +192,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
@@ -299,4 +322,4 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     companion object {
         val MY_PERMISSIONS_REQUEST_LOCATION = 99
     }
-}
+}*/
