@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.os.Looper
 import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
@@ -92,15 +93,14 @@ class MainActivity : AppCompatActivity() {
     // Also will first check if 1. permission is granted and 2. if the location setting is turned on
     @SuppressLint("MissingPermission")
     fun getLastLocation() {
-        Toast.makeText(this, "Fetching location!", Toast.LENGTH_SHORT).show()
         if (checkPermissions()) {
             if (isLocationEnabled()) {
-
                 mFusedLocationClient.lastLocation.addOnCompleteListener(this) { task ->
                     var location: Location? = task.result
                     if (location == null) {
                         requestNewLocationData()
                     } else {
+                        Toast.makeText(this, "Location fetched!", Toast.LENGTH_SHORT).show()
                         //print lat and long to front page
                         findViewById<TextView>(R.id.latTextView).text = location.latitude.toString()
                         findViewById<TextView>(R.id.lonTextView).text = location.longitude.toString()
@@ -113,6 +113,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         } else {
+            Toast.makeText(this, "Requesting permission!", Toast.LENGTH_SHORT).show()
             //Ask for permission
             requestPermissions()
         }
@@ -127,10 +128,9 @@ class MainActivity : AppCompatActivity() {
         mLocationRequest.numUpdates = 1
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        /*
         mFusedLocationClient!!.requestLocationUpdates(
             mLocationRequest, mLocationCallback,
             Looper.myLooper()
-        )*/
+        )
     }
 }
