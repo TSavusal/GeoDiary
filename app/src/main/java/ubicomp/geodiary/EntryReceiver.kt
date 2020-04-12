@@ -1,13 +1,9 @@
 package ubicomp.geodiary
 
-//TO DO: fix anko import
-
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import androidx.room.Room
-import org.jetbrains.anko.doAsync
-//import org.jetbrains.anko.toast
 
 class EntryReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent?) {
@@ -16,12 +12,13 @@ class EntryReceiver : BroadcastReceiver() {
         val text = intent?.getStringExtra( "entrytext")
 
         //MainActivity.showNotification(context,text)
-        /*
-        doAsync {
-            val db = Room.databaseBuilder(context, AppDatabase::class.java, "reminders")
-                .build()
+
+        val db = Room.databaseBuilder(context, AppDatabase::class.java, "reminders")
+            .build()
+        if (uid != null) {
             db.EntryDao().delete(uid)
-            db.close()
-        }*/
+        }
+        db.close()
+
     }
 }
