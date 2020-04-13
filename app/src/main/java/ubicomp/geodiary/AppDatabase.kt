@@ -7,9 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [EntryEntity::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun entryDao(): EntryDao
-
-    companion object {
+    abstract fun entryDao(): EntryDao companion object {
         @Volatile private var instance: AppDatabase? = null
         private val LOCK = Any()
 

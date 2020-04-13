@@ -18,6 +18,9 @@ import androidx.room.Room
 import com.google.android.gms.location.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.toast
+import org.jetbrains.anko.uiThread
 
 //Todo: Implement database where text + address info is saved and presented in recycler viewer
 
@@ -25,13 +28,12 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
-    val db = Room.databaseBuilder(
-        applicationContext,
-        AppDatabase::class.java, "entry-list.db").build()
-
-    //val db = AppDatabase(this)
-
+    val db = AppDatabase(this)
     private fun getData() {
+        val db = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java, "entry-list.db"
+        ).build()
         GlobalScope.launch {
             db.entryDao().getAllEntries(EntryEntity(id = 1337,address = "address",date = "date",entry_title = "entry_title",entry_text ="entry_text"))
             val data = db.entryDao().getAll()
@@ -145,4 +147,24 @@ class MainActivity : AppCompatActivity() {
             Looper.myLooper()
         )
     }
+
+    private fun refreshList() {
+        doAsync {
+            val db: AppDatabase = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "entry_table").build()
+            db.entryDao().insert(entry)
+            db.close()
+
+            uiThread {
+
+                if (entry_table.isNotEmpty()) {
+                    val adapter = EntryAdapter(applicationContext, entry_table)
+                    list.adapter = adapter
+
+                } else (
+                        toast("No reminders yet")
+                        )
+            }
+        }
+    }
+
 }

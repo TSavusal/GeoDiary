@@ -10,6 +10,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import java.io.IOException
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.junit.Assert.*
 
 @RunWith(JUnit4::class)
 class ReadWriteEntityTest {
@@ -36,7 +38,19 @@ class ReadWriteEntityTest {
         val entry = EntryEntity(id = 1337,address = "address",date = "date",entry_title = "entry_title",entry_text ="entry_text")
         EntryDao.insertAll(entry)
         //val entryItem = EntryDao.findByTitle(entry.entry_title)
-        val entryItem = EntryDao.getAllEntries()
+        val entryItem = EntryDao.getAllEntries(EntryEntity(id = 1337,address = "address",date = "date",entry_title = "entry_title",entry_text ="entry_text"))
         assertThat(entryItem, equalTo(entry))
     }
 }
+
+/*
+@RunWith(AndroidJUnit4::class)
+class ExampleInstrumentedTest {
+    @Test
+    fun useAppContext() {
+        // Context of the app under test.
+        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+        assertEquals("fi.oulu.ubicomp.mobicomplab1", appContext.packageName)
+    }
+}
+ */

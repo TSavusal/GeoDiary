@@ -10,9 +10,10 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.room.Room
 import kotlinx.android.synthetic.main.fragment_second.*
+import org.jetbrains.anko.doAsync
 import java.util.*
-
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -57,4 +58,18 @@ class SecondFragment : Fragment() {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
     }
+
+    val entry = EntryEntity
+    private fun updateList() {
+        doAsync {
+            val db = Room.databaseBuilder(
+                applicationContext,
+                AppDatabase::class.java, "entry-list.db"
+            ).build()
+
+            db.entryDao().insert(entry)
+            db.close()
+        }
+    }
+
 }

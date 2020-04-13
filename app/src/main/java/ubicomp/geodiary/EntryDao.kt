@@ -1,6 +1,5 @@
 package ubicomp.geodiary
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -27,13 +26,10 @@ interface EntryDao {
     fun deleteAll()
 
     @Query("SELECT * FROM entry_table")
-    fun getEntries(): List<EntryEntity>
-
-    @Query("SELECT * FROM entry_table")
     fun getAll(): List<EntryEntity>
 
     @Query("SELECT * FROM entry_table ORDER BY id DESC LIMIT 1")
-    fun getAllEntries(): EntryEntity?
+    fun getAllEntries(entryEntity: EntryEntity): EntryEntity?
 
     @Query("SELECT * from entry_table WHERE 'id' == :id")
     fun get(id: Int): EntryEntity?
