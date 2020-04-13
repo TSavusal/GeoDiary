@@ -10,25 +10,37 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
-import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.room.Room
 import com.google.android.gms.location.*
-//import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-//Todo: Implement database where text + address info is saved and presented in recyclerviewer
+//Todo: Implement database where text + address info is saved and presented in recycler viewer
 
-//Todo: Send latitude and longitude data from mainactivity to second fragment (Intent/interface?) altertnatively import function to secondfrag and modify
+//Todo: Send latitude and longitude data from main activity to second fragment (Intent/interface?) alternatively import function to second frag and modify
 
 class MainActivity : AppCompatActivity() {
 
-/*
     val db = Room.databaseBuilder(
         applicationContext,
         AppDatabase::class.java, "entry-list.db").build()
 
- */
+    //val db = AppDatabase(this)
+
+    private fun getData() {
+        GlobalScope.launch {
+            db.entryDao().getAllEntries(EntryEntity(id = 1337,address = "address",date = "date",entry_title = "entry_title",entry_text ="entry_text"))
+            val data = db.entryDao().getAll()
+
+            data.forEach {
+                println(it)
+            }
+        }
+    }
 
     //Use PERMISSION_ID when requesting for permission and in after the permission result,
     //PERMISSION_ID used to identify user action with permission request.
@@ -40,7 +52,7 @@ class MainActivity : AppCompatActivity() {
 
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
-            var mLastLocation: Location = locationResult.lastLocation
+            val mLastLocation: Location = locationResult.lastLocation
             findViewById<TextView>(R.id.latTextView).text = mLastLocation.latitude.toString()
             findViewById<TextView>(R.id.lonTextView).text = mLastLocation.longitude.toString()
         }
@@ -96,7 +108,7 @@ class MainActivity : AppCompatActivity() {
         if (checkPermissions()) {
             if (isLocationEnabled()) {
                 mFusedLocationClient.lastLocation.addOnCompleteListener(this) { task ->
-                    var location: Location? = task.result
+                    val location: Location? = task.result
                     if (location == null) {
                         requestNewLocationData()
                     } else {
@@ -121,14 +133,14 @@ class MainActivity : AppCompatActivity() {
     //Ignore specified warning "MissingPermission"
     @SuppressLint("MissingPermission")
     private fun requestNewLocationData() {
-        var mLocationRequest = LocationRequest()
+        val mLocationRequest = LocationRequest()
         mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         mLocationRequest.interval = 0
         mLocationRequest.fastestInterval = 0
         mLocationRequest.numUpdates = 1
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        mFusedLocationClient!!.requestLocationUpdates(
+        mFusedLocationClient.requestLocationUpdates(
             mLocationRequest, mLocationCallback,
             Looper.myLooper()
         )
