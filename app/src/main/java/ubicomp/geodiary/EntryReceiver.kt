@@ -16,7 +16,7 @@ class EntryReceiver : BroadcastReceiver() {
         val db = Room.databaseBuilder(context, AppDatabase::class.java, "reminders")
             .build()
         if (uid != null) {
-            db.EntryDao().delete(uid)
+            db.entryDao().delete(uid)
         }
         db.close()
 
