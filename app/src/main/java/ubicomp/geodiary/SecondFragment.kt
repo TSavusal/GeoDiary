@@ -59,17 +59,38 @@ class SecondFragment : Fragment() {
         }
     }
 
+//Todo: Fix this
     val entry = EntryEntity
     private fun updateList() {
         doAsync {
-            val db = Room.databaseBuilder(
-                applicationContext,
-                AppDatabase::class.java, "entry-list.db"
-            ).build()
+            val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "entry-list.db").build()
 
             db.entryDao().insert(entry)
             db.close()
         }
     }
-
 }
+
+/** @Database(entities = arrayOf(UserEntity::class), version = 1)
+abstract class UserDb : RoomDatabase() {
+
+    abstract fun userDao(): UserDao
+
+    companion object {
+        private var INSTANCE: UserDb? = null
+
+        fun getInstance(context: Context): UserDb? {
+            if (INSTANCE == null) {
+                synchronized(UserDb::class) {
+                    INSTANCE = Room.databaseBuilder(context.applicationContext, UserDb::class.java, "user.db").build()
+                }
+            }
+            return INSTANCE
+        }
+
+        fun destroyInstance() {
+            INSTANCE = null
+        }
+    }
+}
+ */
