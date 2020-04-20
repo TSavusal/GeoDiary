@@ -19,8 +19,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 //Todo: Implement database where text + address info is saved and presented in recyclerviewer
 
-//Todo: Send latitude and longitude data from mainactivity to second fragment (Intent/interface?) altertnatively import function to secondfrag and modify
-
 class MainActivity : AppCompatActivity() {
 
 /*
