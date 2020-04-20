@@ -5,7 +5,7 @@ import androidx.room.*
 @Dao
 interface EntryDao {
     @Transaction @Insert
-    fun insert(entry: EntryEntity): Long
+    fun insertEntry(entry: EntryEntity): Long
 
     @Insert
     fun insert(entry: EntryEntity?)
@@ -17,10 +17,10 @@ interface EntryDao {
     fun update(entry: EntryEntity)
 
     @Delete
-    fun delete(entry: EntryEntity)
+    fun delete(entry: Int?)
 
-    @Query("DELETE FROM entry_table WHERE 'id' == :id")
-    fun delete(id: Int): EntryEntity?
+    //@Query("DELETE FROM entry_table WHERE 'id' == :id")
+    //fun delete(id: Int): EntryEntity?
 
     @Query("DELETE FROM entry_table")
     fun deleteAll()
@@ -29,7 +29,7 @@ interface EntryDao {
     fun getAll(): List<EntryEntity>
 
     @Query("SELECT * FROM entry_table ORDER BY id DESC LIMIT 1")
-    fun getAllEntries(entryEntity: EntryEntity): EntryEntity?
+    fun getAllEntries(): List<EntryEntity>
 
     @Query("SELECT * from entry_table WHERE 'id' == :id")
     fun get(id: Int): EntryEntity?

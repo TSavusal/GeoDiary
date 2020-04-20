@@ -10,6 +10,7 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
+import android.util.Log.e
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
 import androidx.room.Room
@@ -36,7 +37,8 @@ class MainActivity : AppCompatActivity() {
             AppDatabase::class.java, "entry-list.db"
         ).build()
         GlobalScope.launch {
-            db.entryDao().getAllEntries(EntryEntity(id = 1337,address = "address",date = "date",entry_title = "entry_title",entry_text ="entry_text"))
+            //db.entryDao().getAllEntries(EntryEntity(id = 1337,address = "address",date = "date",entry_title = "entry_title",entry_text ="entry_text"))
+            db.entryDao().getAllEntries()
             val data = db.entryDao().getAll()
 
             data.forEach {
@@ -140,37 +142,42 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+
+        //Ignore specified warning "MissingPermission"
+        @SuppressLint("MissingPermission")
+        fun requestNewLocationData() {
+            var mLocationRequest = LocationRequest()
+            mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            mLocationRequest.interval = 0
+            mLocationRequest.fastestInterval = 0
+            mLocationRequest.numUpdates = 1
+
+            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+            mFusedLocationClient!!.requestLocationUpdates(
+                mLocationRequest, mLocationCallback,
+                Looper.myLooper()
+            )
+        }
+    // Todo: Fix insert
     private fun refreshList() {
         doAsync {
-            val db: AppDatabase = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "entry_table").build()
-            db.entryDao().insert(entry)
+            val db: AppDatabase =
+                Room.databaseBuilder(applicationContext, AppDatabase::class.java, "entry_table")
+                    .build()
+            //db.entryDao().insert(EntryEntity)
             db.close()
 
             uiThread {
 
-                if (entry_table.isNotEmpty()) {
-                    val adapter = EntryAdapter(applicationContext, entry_table)
-                    list.adapter = adapter
+                if ("entry_table".isNotEmpty()) {
+                    //val adapter = EntryAdapter(applicationContext, "entry_table")
+                    //list.adapter = adapter
 
                 } else (
                         toast("No reminders yet")
                         )
             }
         }
-
-    //Ignore specified warning "MissingPermission"
-    @SuppressLint("MissingPermission")
-    private fun requestNewLocationData() {
-        var mLocationRequest = LocationRequest()
-        mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        mLocationRequest.interval = 0
-        mLocationRequest.fastestInterval = 0
-        mLocationRequest.numUpdates = 1
-
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        mFusedLocationClient!!.requestLocationUpdates(
-            mLocationRequest, mLocationCallback,
-            Looper.myLooper()
-        )
     }
 }

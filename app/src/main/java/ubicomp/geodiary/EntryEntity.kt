@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "entry_table")
 data class EntryEntity (
     @NonNull
-    @field:PrimaryKey(autoGenerate = true) private var id: Int,
+    @field:PrimaryKey(autoGenerate = true) protected var id: Int,
     @field:ColumnInfo(name = "address") val address: String,
     @field:ColumnInfo(name = "date") val date: String,
     @field:ColumnInfo(name = "entry_title") val entry_title: String,
