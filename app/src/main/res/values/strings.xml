@@ -7,7 +7,7 @@
     <string name="add_entry">Add New Entry</string>
     <string name="exit">Exit App</string>
     <string name="previous">Previous</string>
-    <string name="edit_text">Input New Diary Entry Here</string>
+    <string name="edit_text">Input entry manually: press here</string>
     <string name="hello_first_fragment">GeoDiary</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="input">Save New Entry</string>

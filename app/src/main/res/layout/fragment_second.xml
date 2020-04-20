@@ -7,11 +7,43 @@
     android:background="@drawable/forest"
     tools:context=".SecondFragment">
 
+    <!---TextView where text is displayed after conversion from speech -->
+
+    <!---Imagebutton: By clicking button, SpeechToText dialog will be shown-->
+
+    <TextView
+        android:id="@+id/speech_target"
+        android:layout_width="351dp"
+        android:layout_height="73dp"
+        android:background="#FFFFFF"
+        android:text="Press mic button to input entry"
+        android:textColor="#000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.389" />
+
+    <ImageButton
+        android:id="@+id/voiceBtn"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/ic_button"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_mic_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.554" />
+
     <EditText
         android:id="@+id/EditEntry"
         style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_width="351dp"
+        android:layout_height="89dp"
         android:autofillHints="Entry here"
         android:background="#FFFFFF"
         android:ems="10"
@@ -20,11 +52,13 @@
         android:outlineProvider="bounds"
         android:selectAllOnFocus="false"
         android:singleLine="false"
+        android:textColor="#000"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.311" />
+        app:layout_constraintVertical_bias="0.244" />
 
     <Button
         android:id="@+id/button_save_input"
@@ -36,7 +70,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.782" />
+        app:layout_constraintVertical_bias="0.833" />
 
     <Button
         android:id="@+id/button_back"
@@ -48,20 +82,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.918" />
+        app:layout_constraintVertical_bias="0.954" />
 
     <Button
         android:id="@+id/button_get_location"
-        android:layout_width="295dp"
+        android:layout_width="317dp"
         android:layout_height="65dp"
         android:background="#7FEC8A"
         android:text="@string/button_get_location"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.405"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.638" />
+        app:layout_constraintVertical_bias="0.708" />
 
     <TextView
         android:id="@+id/latTextView"
@@ -73,10 +106,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.056"
+        app:layout_constraintHorizontal_bias="0.212"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.088" />
+        app:layout_constraintVertical_bias="0.066" />
 
     <TextView
         android:id="@+id/lonTextView"
@@ -88,7 +121,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.062"
+        app:layout_constraintHorizontal_bias="0.232"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/latTextView"
         app:layout_constraintVertical_bias="0.0" />

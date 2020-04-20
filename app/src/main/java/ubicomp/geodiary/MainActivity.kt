@@ -10,21 +10,22 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
+import android.widget.TextView
 import androidx.room.Room
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 
-//Todo: Implement database where text + address info is saved and presented in recycler viewer
+//Todo: Implement database where text + address info is saved and presented in recyclerviewer
 
-//Todo: Send latitude and longitude data from main activity to second fragment (Intent/interface?) alternatively import function to second frag and modify
+//Todo: Send latitude and longitude data from mainactivity to second fragment (Intent/interface?) altertnatively import function to secondfrag and modify
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,6 +44,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+/*
+    val db = Room.databaseBuilder(
+        applicationContext,
+        AppDatabase::class.java, "entry-list.db").build()
+
+ */
 
     //Use PERMISSION_ID when requesting for permission and in after the permission result,
     //PERMISSION_ID used to identify user action with permission request.
@@ -54,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
-            val mLastLocation: Location = locationResult.lastLocation
+            var mLastLocation: Location = locationResult.lastLocation
             findViewById<TextView>(R.id.latTextView).text = mLastLocation.latitude.toString()
             findViewById<TextView>(R.id.lonTextView).text = mLastLocation.longitude.toString()
         }
@@ -96,7 +103,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar)
 
         //Initialize mFusedLocationClient
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -110,7 +117,7 @@ class MainActivity : AppCompatActivity() {
         if (checkPermissions()) {
             if (isLocationEnabled()) {
                 mFusedLocationClient.lastLocation.addOnCompleteListener(this) { task ->
-                    val location: Location? = task.result
+                    var location: Location? = task.result
                     if (location == null) {
                         requestNewLocationData()
                     } else {
@@ -132,21 +139,6 @@ class MainActivity : AppCompatActivity() {
             requestPermissions()
         }
     }
-    //Ignore specified warning "MissingPermission"
-    @SuppressLint("MissingPermission")
-    private fun requestNewLocationData() {
-        val mLocationRequest = LocationRequest()
-        mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        mLocationRequest.interval = 0
-        mLocationRequest.fastestInterval = 0
-        mLocationRequest.numUpdates = 1
-
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        mFusedLocationClient.requestLocationUpdates(
-            mLocationRequest, mLocationCallback,
-            Looper.myLooper()
-        )
-    }
 
     private fun refreshList() {
         doAsync {
@@ -165,6 +157,20 @@ class MainActivity : AppCompatActivity() {
                         )
             }
         }
-    }
 
+    //Ignore specified warning "MissingPermission"
+    @SuppressLint("MissingPermission")
+    private fun requestNewLocationData() {
+        var mLocationRequest = LocationRequest()
+        mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        mLocationRequest.interval = 0
+        mLocationRequest.fastestInterval = 0
+        mLocationRequest.numUpdates = 1
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        mFusedLocationClient!!.requestLocationUpdates(
+            mLocationRequest, mLocationCallback,
+            Looper.myLooper()
+        )
+    }
 }
