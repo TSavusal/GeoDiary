@@ -18,10 +18,11 @@ import kotlinx.android.synthetic.main.fragment_second.*
 import java.util.*
 
 /**
- * A simple [Fragment] subclass as the second destination in the navigation.
+ *SecondFragment is a [Fragment] subclass for the text input
  */
 class SecondFragment : Fragment() {
 
+    //private code for reference
     private val REQUEST_CODE_SPEECH_INPUT = 100
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -55,7 +56,7 @@ class SecondFragment : Fragment() {
             REQUEST_CODE_SPEECH_INPUT -> {
                 if (resultCode == Activity.RESULT_OK && null != data){
 
-                    //get text from result
+                    //get text from speech
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     //set the text to textview
                     speech_target.text = result[0]
@@ -67,9 +68,12 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //button click to show SpeechtoText dialog
+        //button click to:
+        //1. record voice to text entry
+        //2. get geographical location
         voiceBtn.setOnClickListener{
             speak()
+            (activity as MainActivity).getLastLocation()
         }
 
         //Todo: Implement text save
