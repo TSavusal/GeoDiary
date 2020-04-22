@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.room.Room
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -22,13 +23,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 //Todo: Send latitude and longitude data from mainactivity to second fragment (Intent/interface?) altertnatively import function to secondfrag and modify
 
 class MainActivity : AppCompatActivity() {
-
-/*
-    val db = Room.databaseBuilder(
-        applicationContext,
-        AppDatabase::class.java, "entry-list.db").build()
-
- */
 
     //Use PERMISSION_ID when requesting for permission and in after the permission result,
     //PERMISSION_ID used to identify user action with permission request.
