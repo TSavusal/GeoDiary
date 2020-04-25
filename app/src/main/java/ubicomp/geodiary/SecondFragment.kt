@@ -82,13 +82,12 @@ class SecondFragment : Fragment() {
 
         button_save_input.setOnClickListener{
             //Toast.makeText(this, "Entry saved!", Toast.LENGTH_LONG).show()
-            Toast.makeText((activity as MainActivity), "Entry Saved", Toast.LENGTH_LONG).show()
+            Toast.makeText((activity as MainActivity), "Entry Saved!", Toast.LENGTH_LONG).show()
         }
 
         view.findViewById<Button>(R.id.button_back).setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
 
-        //Todo: Implement text save
         //val EntryText = view.findViewById<EditText>(R.id.EditEntry) as EditText
         //Toast.makeText(activity, EntryText.toString(), Toast.LENGTH_SHORT).show()
 
