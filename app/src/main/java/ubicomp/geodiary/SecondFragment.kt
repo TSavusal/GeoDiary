@@ -1,6 +1,7 @@
 package ubicomp.geodiary
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.location.Address
 import android.location.Geocoder
@@ -115,21 +116,27 @@ class SecondFragment : Fragment() {
             val EntryText = EditEntry.text
         }
         }*/
+        }
     }
-}
+    
+    companion object {
+        private var instance: MainActivity? = null
 
-//Todo: Fix this
-/**    val entry = EntryEntity
+        fun applicationContext() : Context {
+            return instance!!.applicationContext
+        }
+    }
+
+    val entry = EntryEntity(address = "address", eid = 123, entry_text = "entry_text")
     private fun updateList() {
         doAsync {
-            val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "entry-list.db").build()
+            val db = Room.databaseBuilder(applicationContext(), AppDatabase::class.java, "entry-items").build()
 
             db.entryDao().insert(entry)
             db.close()
         }
     }
 }
- */
 /** @Database(entities = arrayOf(UserEntity::class), version = 1)
 abstract class UserDb : RoomDatabase() {
 
