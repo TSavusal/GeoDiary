@@ -3,22 +3,18 @@ package ubicomp.geodiary
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.location.Address
-import android.location.Geocoder
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.room.Room
 import kotlinx.android.synthetic.main.fragment_second.*
 import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.support.v4.toast
 import java.util.*
 
 /**
@@ -82,6 +78,7 @@ class SecondFragment : Fragment() {
 
         button_save_input.setOnClickListener{
             //Toast.makeText(this, "Entry saved!", Toast.LENGTH_LONG).show()
+            val EditContent: String = EditEntry.text.toString()
             Toast.makeText((activity as MainActivity), "Entry Saved!", Toast.LENGTH_LONG).show()
         }
 
