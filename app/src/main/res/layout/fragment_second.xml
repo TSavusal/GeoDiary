@@ -7,8 +7,6 @@
     android:background="@drawable/forest"
     tools:context=".SecondFragment">
 
-    <!---TextView where text is displayed after conversion from speech -->
-
     <!---Imagebutton: By clicking button, SpeechToText dialog will be shown-->
 
     <TextView
