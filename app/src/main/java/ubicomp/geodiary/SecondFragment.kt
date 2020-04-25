@@ -73,7 +73,10 @@ class SecondFragment : Fragment() {
         }
 
         //Todo: Implement text save
-        view.findViewById<EditText>(R.id.EditEntry)
+        //view.findViewById<EditText>(R.id.EditEntry)
+        //String name = "Paramjeet"
+        //val nametxt = findViewById (R.id.nametxt) as EditText
+        //nametxt.text = name
 
         //Todo: implement save_input that saves text + address from latitude & longitude
         view.findViewById<Button>(R.id.button_save_input).setOnClickListener {
