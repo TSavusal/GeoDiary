@@ -1,7 +1,6 @@
 package ubicomp.geodiary
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.location.Address
 import android.location.Geocoder
@@ -18,8 +17,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.room.Room
 import kotlinx.android.synthetic.main.fragment_second.*
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.support.v4.toast
 import java.util.*
-//import com.loop.toolkit.kotlin.Utils.extensions.applicationContext
 
 /**
  *SecondFragment is a [Fragment] subclass for the text input
@@ -80,18 +79,26 @@ class SecondFragment : Fragment() {
             (activity as MainActivity).getLastLocation()
         }
 
+        button_save_input.setOnClickListener{
+            //Toast.makeText(this, "Entry saved!", Toast.LENGTH_LONG).show()
+            Toast.makeText((activity as MainActivity), "Entry Saved", Toast.LENGTH_LONG).show()
+        }
+
+        view.findViewById<Button>(R.id.button_back).setOnClickListener {
+            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+
         //Todo: Implement text save
-        val EntryText = view.findViewById<EditText>(R.id.EditEntry) as EditText
-        Toast.makeText(activity, EntryText.toString(), Toast.LENGTH_SHORT).show()
+        //val EntryText = view.findViewById<EditText>(R.id.EditEntry) as EditText
+        //Toast.makeText(activity, EntryText.toString(), Toast.LENGTH_SHORT).show()
 
         //Todo: (optional) implement save_input that saves text + address from latitude & longitude
+        /**
         view.findViewById<Button>(R.id.button_save_input).setOnClickListener {
             val geocoder: Geocoder
             val latitude = 0.0
             val longitude = 0.0
             val addresses: List<Address>
             geocoder = Geocoder(getContext(), Locale.getDefault())
-            // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
             addresses = geocoder.getFromLocation(
                 latitude, longitude, 1
@@ -107,32 +114,22 @@ class SecondFragment : Fragment() {
 
             val EntryText = EditEntry.text
         }
-
-        view.findViewById<Button>(R.id.button_back).setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-        }
-    }
-//}
-//Todo: Fix this
-companion object {
-    private var instance: MainActivity? = null
-
-    fun applicationContext() : Context {
-        return instance!!.applicationContext
+        }*/
     }
 }
 
-   val entry = EntryEntity(address = "address", eid = 123, entry_text = "entry_text")
+//Todo: Fix this
+/**    val entry = EntryEntity
     private fun updateList() {
         doAsync {
-            val db = Room.databaseBuilder(applicationContext(), AppDatabase::class.java, "entry-items").build()
+            val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "entry-list.db").build()
 
             db.entryDao().insert(entry)
             db.close()
         }
     }
 }
-
+ */
 /** @Database(entities = arrayOf(UserEntity::class), version = 1)
 abstract class UserDb : RoomDatabase() {
 
