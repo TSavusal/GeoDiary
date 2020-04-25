@@ -3,18 +3,21 @@ package ubicomp.geodiary
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.location.Location
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.room.Room
 import kotlinx.android.synthetic.main.fragment_second.*
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.support.v4.intentFor
 import java.util.*
 
 /**
@@ -68,18 +71,21 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val lattxt = "37.4219983"
+        val longtxt = "-122.084"
+
         //button click to:
         //1. record voice to text entry
         //2. get geographical location
         voiceBtn.setOnClickListener{
             speak()
-            (activity as MainActivity).getLastLocation()
         }
 
         button_save_input.setOnClickListener{
             //Toast.makeText(this, "Entry saved!", Toast.LENGTH_LONG).show()
             val EditContent: String = EditEntry.text.toString()
-            Toast.makeText((activity as MainActivity), "Entry Saved!", Toast.LENGTH_LONG).show()
+            Toast.makeText((activity as MainActivity), "Entry Saved! Coordinates:", Toast.LENGTH_LONG).show()
+            Toast.makeText((activity as MainActivity), longtxt + lattxt, Toast.LENGTH_LONG).show()
         }
 
         view.findViewById<Button>(R.id.button_back).setOnClickListener {

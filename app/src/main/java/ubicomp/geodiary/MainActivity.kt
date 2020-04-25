@@ -96,6 +96,13 @@ class MainActivity : AppCompatActivity() {
                     } else {
                         Toast.makeText(this, "Location fetched!", Toast.LENGTH_SHORT).show()
                         //print lat and long to front page
+                        val longtxtmsg: String = location.longitude.toString()
+                        val lattxtmsg: String = location.latitude.toString()
+                        val intent = Intent(this, SecondFragment::class.java)
+                        //shares long+lat data with secondfragment
+                        intent.putExtra("longkey", longtxtmsg)
+                        intent.putExtra("latkey", lattxtmsg)
+
                         findViewById<TextView>(R.id.latTextView).text = location.latitude.toString()
                         findViewById<TextView>(R.id.lonTextView).text = location.longitude.toString()
                     }
