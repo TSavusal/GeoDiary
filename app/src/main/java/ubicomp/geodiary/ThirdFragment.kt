@@ -33,7 +33,7 @@ class ThirdFragment : Fragment() {
                               savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_third, container, false)
 
-    // populate the views now that the layout has been inflated
+    // populate views after layout has inflated
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // RecyclerView node initialized here

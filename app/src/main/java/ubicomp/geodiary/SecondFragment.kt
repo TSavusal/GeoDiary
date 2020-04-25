@@ -88,7 +88,7 @@ class SecondFragment : Fragment() {
             Toast.makeText((activity as MainActivity), longtxt + lattxt, Toast.LENGTH_LONG).show()
             doAsync {
                 val db = Room.databaseBuilder(applicationContext(), AppDatabase::class.java, "entry-items").build()
-                val entry = EntryEntity(eid = 123, address = "Oulu", entry_text = EditContent)
+                val entry = EntryEntity(eid = 123, address = longtxt + lattxt, entry_text = EditContent)
                 db.entryDao().insert(entry)
                 db.close()
             }
