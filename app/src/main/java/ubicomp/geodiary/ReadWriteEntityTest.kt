@@ -11,7 +11,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import java.io.IOException
 import androidx.test.ext.junit.runners.AndroidJUnit4
-
+/**
 @RunWith(JUnit4::class)
 class ReadWriteEntityTest {
     private lateinit var EntryDao: EntryDao
@@ -41,8 +41,6 @@ class ReadWriteEntityTest {
         assertThat(entryItem, equalTo(entry))
     }
 }
-
-/*
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
     @Test

@@ -79,10 +79,8 @@ class SecondFragment : Fragment() {
         }
 
         //Todo: Implement text save
-        //view.findViewById<EditText>(R.id.EditEntry)
-        //String name = "Paramjeet"
-        //val nametxt = findViewById (R.id.nametxt) as EditText
-        //nametxt.text = name
+        val EntryText = view.findViewById<EditText>(R.id.EditEntry) as EditText
+        Toast.makeText(activity, EntryText.toString(), Toast.LENGTH_SHORT).show()
 
         //Todo: (optional) implement save_input that saves text + address from latitude & longitude
         view.findViewById<Button>(R.id.button_save_input).setOnClickListener {
@@ -112,9 +110,9 @@ class SecondFragment : Fragment() {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
     }
-
+}
 //Todo: Fix this
-    val entry = EntryEntity
+/**    val entry = EntryEntity
     private fun updateList() {
         doAsync {
             val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "entry-list.db").build()
@@ -124,7 +122,7 @@ class SecondFragment : Fragment() {
         }
     }
 }
-
+ */
 /** @Database(entities = arrayOf(UserEntity::class), version = 1)
 abstract class UserDb : RoomDatabase() {
 
