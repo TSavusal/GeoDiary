@@ -100,7 +100,7 @@ class SecondFragment : Fragment() {
         //val EntryText = view.findViewById<EditText>(R.id.EditEntry) as EditText
         //Toast.makeText(activity, EntryText.toString(), Toast.LENGTH_SHORT).show()
 
-        //Todo: (optional) implement save_input that saves text + address from latitude & longitude
+        //Todo: (optional) implement save_input that saves address from latitude & longitude
         /**
         view.findViewById<Button>(R.id.button_save_input).setOnClickListener {
             val geocoder: Geocoder
