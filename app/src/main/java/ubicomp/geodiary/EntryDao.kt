@@ -16,14 +16,14 @@ interface EntryDao {
     @Update
     fun update(entry: EntryEntity)
 
-    @Delete
-    fun delete(entry: Int?)
+    //@Delete
+    //fun delete(entry: Int?)
 
     //@Query("DELETE FROM entry_table WHERE 'id' == :id")
     //fun delete(id: Int): EntryEntity?
 
-    @Query("DELETE FROM entry_table")
-    fun deleteAll()
+    //@Query("DELETE FROM entry_table")
+    //fun deleteAll()
 
     @Query("SELECT * FROM entry_table")
     fun getAll(): List<EntryEntity>
