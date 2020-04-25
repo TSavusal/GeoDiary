@@ -8,7 +8,7 @@ interface EntryDao {
     fun insertEntry(entry: EntryEntity): Long
 
     @Insert
-    fun insert(entry: EntryEntity?)
+    fun insert(entry: EntryEntity)
 
     @Insert
     fun insertAll(vararg entry: EntryEntity)

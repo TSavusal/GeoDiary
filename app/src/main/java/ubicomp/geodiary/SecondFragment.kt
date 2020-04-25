@@ -79,6 +79,12 @@ class SecondFragment : Fragment() {
         button_save_input.setOnClickListener{
             //Toast.makeText(this, "Entry saved!", Toast.LENGTH_LONG).show()
             val EditContent: String = EditEntry.text.toString()
+            doAsync {
+                val db = Room.databaseBuilder(applicationContext(), AppDatabase::class.java, "entry-items").build()
+                val entry = EntryEntity(eid = 123, address = "Oulu", entry_text = EditContent)
+                db.entryDao().insert(entry)
+                db.close()
+            }
             Toast.makeText((activity as MainActivity), "Entry Saved!", Toast.LENGTH_LONG).show()
         }
 
@@ -114,7 +120,7 @@ class SecondFragment : Fragment() {
         }*/
         }
     }
-    
+
     companion object {
         private var instance: MainActivity? = null
 
@@ -123,36 +129,15 @@ class SecondFragment : Fragment() {
         }
     }
 
-    val entry = EntryEntity(address = "address", eid = 123, entry_text = "entry_text")
-    private fun updateList() {
+    /*
+    val entry = this.EditContent
+    private fun updateList(EditContent: String) {
         doAsync {
             val db = Room.databaseBuilder(applicationContext(), AppDatabase::class.java, "entry-items").build()
 
-            db.entryDao().insert(entry)
+            db.entryDao().insert(EditContent)
             db.close()
         }
-    }
+    }*/
 }
-/** @Database(entities = arrayOf(UserEntity::class), version = 1)
-abstract class UserDb : RoomDatabase() {
 
-    abstract fun userDao(): UserDao
-
-    companion object {
-        private var INSTANCE: UserDb? = null
-
-        fun getInstance(context: Context): UserDb? {
-            if (INSTANCE == null) {
-                synchronized(UserDb::class) {
-                    INSTANCE = Room.databaseBuilder(context.applicationContext, UserDb::class.java, "user.db").build()
-                }
-            }
-            return INSTANCE
-        }
-
-        fun destroyInstance() {
-            INSTANCE = null
-        }
-    }
-}
- */
