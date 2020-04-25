@@ -10,48 +10,19 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
-import android.util.Log.e
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
-import androidx.room.Room
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.room.Room
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.toast
-import org.jetbrains.anko.uiThread
 
 //Todo: Implement database where text + address info is saved and presented in recyclerviewer
 
 //Todo: Send latitude and longitude data from mainactivity to second fragment (Intent/interface?) altertnatively import function to secondfrag and modify
 
 class MainActivity : AppCompatActivity() {
-
-    val db = AppDatabase(this)
-    private fun getData() {
-        val db = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java, "entry-list.db"
-        ).build()
-        GlobalScope.launch {
-            //db.entryDao().getAllEntries(EntryEntity(id = 1337,address = "address",date = "date",entry_title = "entry_title",entry_text ="entry_text"))
-            db.entryDao().getAllEntries()
-            val data = db.entryDao().getAll()
-
-            data.forEach {
-                println(it)
-            }
-        }
-    }
-/*
-    val db = Room.databaseBuilder(
-        applicationContext,
-        AppDatabase::class.java, "entry-list.db").build()
-
- */
 
     //Use PERMISSION_ID when requesting for permission and in after the permission result,
     //PERMISSION_ID used to identify user action with permission request.
@@ -141,43 +112,19 @@ class MainActivity : AppCompatActivity() {
             requestPermissions()
         }
     }
+    //Ignore specified warning "MissingPermission"
+    @SuppressLint("MissingPermission")
+    private fun requestNewLocationData() {
+        var mLocationRequest = LocationRequest()
+        mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        mLocationRequest.interval = 0
+        mLocationRequest.fastestInterval = 0
+        mLocationRequest.numUpdates = 1
 
-
-
-        //Ignore specified warning "MissingPermission"
-        @SuppressLint("MissingPermission")
-        fun requestNewLocationData() {
-            var mLocationRequest = LocationRequest()
-            mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-            mLocationRequest.interval = 0
-            mLocationRequest.fastestInterval = 0
-            mLocationRequest.numUpdates = 1
-
-            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-            mFusedLocationClient!!.requestLocationUpdates(
-                mLocationRequest, mLocationCallback,
-                Looper.myLooper()
-            )
-        }
-    // Todo: Fix insert
-    private fun refreshList() {
-        doAsync {
-            val db: AppDatabase =
-                Room.databaseBuilder(applicationContext, AppDatabase::class.java, "entry_table")
-                    .build()
-            //db.entryDao().insert(EntryEntity)
-            db.close()
-
-            uiThread {
-
-                if ("entry_table".isNotEmpty()) {
-                    //val adapter = EntryAdapter(applicationContext, "entry_table")
-                    //list.adapter = adapter
-
-                } else (
-                        toast("No reminders yet")
-                        )
-            }
-        }
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        mFusedLocationClient!!.requestLocationUpdates(
+            mLocationRequest, mLocationCallback,
+            Looper.myLooper()
+        )
     }
 }
