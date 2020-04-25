@@ -86,6 +86,12 @@ class SecondFragment : Fragment() {
             val EditContent: String = EditEntry.text.toString()
             Toast.makeText((activity as MainActivity), "Entry Saved! Coordinates:", Toast.LENGTH_LONG).show()
             Toast.makeText((activity as MainActivity), longtxt + lattxt, Toast.LENGTH_LONG).show()
+            doAsync {
+                val db = Room.databaseBuilder(applicationContext(), AppDatabase::class.java, "entry-items").build()
+                val entry = EntryEntity(eid = 123, address = "Oulu", entry_text = EditContent)
+                db.entryDao().insert(entry)
+                db.close()
+            }
         }
 
         view.findViewById<Button>(R.id.button_back).setOnClickListener {
@@ -120,7 +126,7 @@ class SecondFragment : Fragment() {
         }*/
         }
     }
-    
+
     companion object {
         private var instance: MainActivity? = null
 
@@ -129,36 +135,14 @@ class SecondFragment : Fragment() {
         }
     }
 
-    val entry = EntryEntity(address = "address", eid = 123, entry_text = "entry_text")
-    private fun updateList() {
+    /*
+    val entry = this.EditContent
+    private fun updateList(EditContent: String) {
         doAsync {
             val db = Room.databaseBuilder(applicationContext(), AppDatabase::class.java, "entry-items").build()
 
-            db.entryDao().insert(entry)
+            db.entryDao().insert(EditContent)
             db.close()
         }
-    }
+    }*/
 }
-/** @Database(entities = arrayOf(UserEntity::class), version = 1)
-abstract class UserDb : RoomDatabase() {
-
-    abstract fun userDao(): UserDao
-
-    companion object {
-        private var INSTANCE: UserDb? = null
-
-        fun getInstance(context: Context): UserDb? {
-            if (INSTANCE == null) {
-                synchronized(UserDb::class) {
-                    INSTANCE = Room.databaseBuilder(context.applicationContext, UserDb::class.java, "user.db").build()
-                }
-            }
-            return INSTANCE
-        }
-
-        fun destroyInstance() {
-            INSTANCE = null
-        }
-    }
-}
- */
