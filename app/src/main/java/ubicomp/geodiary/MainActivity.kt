@@ -18,16 +18,15 @@ import androidx.room.Room
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_main.*
 
-//Todo: Implement database where text + address info is saved and presented in recyclerviewer
-
-//Todo: Send latitude and longitude data from mainactivity to second fragment (Intent/interface?) altertnatively import function to secondfrag and modify
-
 class MainActivity : AppCompatActivity() {
 
     //Use PERMISSION_ID when requesting for permission and in after the permission result,
     //PERMISSION_ID used to identify user action with permission request.
     //PERMISSION_ID = Any unique value
     val PERMISSION_ID = 59
+
+    val lattxt = "65.0137"
+    val longtxt = "25.4717"
 
     //declare a variable  mFusedLocationClient
     lateinit var mFusedLocationClient: FusedLocationProviderClient
@@ -94,12 +93,12 @@ class MainActivity : AppCompatActivity() {
                     if (location == null) {
                         requestNewLocationData()
                     } else {
+                        //Print lat and long to front page
                         Toast.makeText(this, "Location fetched!", Toast.LENGTH_SHORT).show()
-                        //print lat and long to front page
+                        //Use intent to share lat & long with secondfragment
                         val longtxtmsg: String = location.longitude.toString()
                         val lattxtmsg: String = location.latitude.toString()
                         val intent = Intent(this, SecondFragment::class.java)
-                        //shares long+lat data with secondfragment
                         intent.putExtra("longkey", longtxtmsg)
                         intent.putExtra("latkey", lattxtmsg)
 
