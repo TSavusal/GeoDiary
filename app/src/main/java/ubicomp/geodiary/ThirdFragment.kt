@@ -15,12 +15,12 @@ data class Listitementry(var entryname: String, var entryaddress: String, var en
 class ThirdFragment : Fragment() {
 
     private val EntriesList = listOf(
-        Listitementry("Entry 1", "Hallituskatu 1", "01.02.2020", "This is the first entry in the GeoDiary" ),
-        Listitementry("Entry 2", "Ojatie 15", "05.02.2020", "There is a great cafe here" ),
-        Listitementry("Entry 3", "Varpusentie 8", "06.02.2020", "The bar at this location serves free chicken wings" ),
-        Listitementry("Entry 4", "Haukankatu 3", "12.02.2020", "A dog attacked me here, it hurt" ),
-        Listitementry("Entry 5", "Isokatu 4", "13.02.2020", "This is the fifth entry in the GeoDiary" ),
-        Listitementry("Entry 6", "Aleksanterinkatu 15", "20.02.2020", "All the shops were closed here when I was here" )
+        Listitementry("Entry 0", "Hallituskatu 1", "01.02.2020", "This is the first entry in the GeoDiary" ),
+        Listitementry("Entry 1", "Ojatie 15", "05.02.2020", "There is a great cafe here" ),
+        Listitementry("Entry 2", "Varpusentie 8", "06.02.2020", "The bar at this location serves free chicken wings" ),
+        Listitementry("Entry 3", "Haukankatu 3", "12.02.2020", "A dog attacked me here, it hurt" ),
+        Listitementry("Entry 4", "Isokatu 4", "13.02.2020", "This is the fifth entry in the GeoDiary" ),
+        Listitementry("Entry 5", "Hallituskatu 12", "26.04.2020", "All the shops were closed" )
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +33,7 @@ class ThirdFragment : Fragment() {
                               savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_third, container, false)
 
-    // populate the views now that the layout has been inflated
+    // populate views after layout has inflated
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // RecyclerView node initialized here

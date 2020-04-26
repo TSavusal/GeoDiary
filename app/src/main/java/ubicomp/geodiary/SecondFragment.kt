@@ -1,27 +1,31 @@
 package ubicomp.geodiary
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
-import android.location.Address
-import android.location.Geocoder
+import android.graphics.PorterDuff
+import android.location.Location
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.room.Room
 import kotlinx.android.synthetic.main.fragment_second.*
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.support.v4.intentFor
 import java.util.*
 
 /**
- *SecondFragment is a [Fragment] subclass for the text input
+ *SecondFragment is the main [Fragment] subclass for the diary entry input through manual text entry and voice
  */
+
 class SecondFragment : Fragment() {
 
     //private code for reference
@@ -36,28 +40,28 @@ class SecondFragment : Fragment() {
     }
 
     private fun speak() {
-        //intent to show SpeechtoText dialog
+        //Intent to show SpeechtoText dialog
         val mIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         mIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
         mIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
         mIntent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak your entry")
 
         try {
-            //if there is no error show SpeechToText dialog
+            //If there is no error show SpeechToText dialog
             startActivityForResult(mIntent, REQUEST_CODE_SPEECH_INPUT)
         }
         catch (e: Exception) {
-            //if there is any error get error message and show in toast
+            //If there is any error get error message and show in toast
             Toast.makeText(activity, e.message, Toast.LENGTH_SHORT).show()
         }
     }
 
+    @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when(requestCode) {
             REQUEST_CODE_SPEECH_INPUT -> {
                 if (resultCode == Activity.RESULT_OK && null != data){
-
                     //get text from speech
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     //set the text to textview
@@ -70,25 +74,50 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var spoken: Int = 1
+        val lattxt = "65.0137"
+        val longtxt = "25.4717"
+
         //button click to:
         //1. record voice to text entry
         //2. get geographical location
         voiceBtn.setOnClickListener{
-            speak()
-            (activity as MainActivity).getLastLocation()
+            if (spoken == 0 ) {
+                speak()
+            }
+            else {
+                spoken = 0
+            }
         }
 
-        //Todo: Implement text save
-        view.findViewById<EditText>(R.id.EditEntry)
+        button_save_input.setOnClickListener{
+            //Fetch intent lat long, date and save EditEntry text
+            val EditContent: String = EditEntry.text.toString()
+            Toast.makeText((activity as MainActivity), "Entry Saved!", Toast.LENGTH_SHORT).show()
+            Toast.makeText((activity as MainActivity), EditContent, Toast.LENGTH_SHORT).show()
+            Toast.makeText((activity as MainActivity), "Coordinates:", Toast.LENGTH_SHORT).show()
+            Toast.makeText((activity as MainActivity), longtxt + " / " + lattxt, Toast.LENGTH_SHORT).show()
+            Toast.makeText((activity as MainActivity), "Date: 26.04.2020", Toast.LENGTH_SHORT).show()
+            doAsync {
+                val db = Room.databaseBuilder(applicationContext(), AppDatabase::class.java, "entry-items").build()
+                val entry = EntryEntity(eid = 123, address = longtxt + lattxt, entry_text = EditContent)
+                db.entryDao().insert(entry)
+                db.close()
+            }
+        }
 
-        //Todo: (optional) implement save_input that saves text + address from latitude & longitude
+        view.findViewById<Button>(R.id.button_back).setOnClickListener {
+            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+        }
+
+        //Todo: (optional) implement automatic address fetch from latitude & longitude
+        /**
         view.findViewById<Button>(R.id.button_save_input).setOnClickListener {
             val geocoder: Geocoder
             val latitude = 0.0
             val longitude = 0.0
             val addresses: List<Address>
             geocoder = Geocoder(getContext(), Locale.getDefault())
-            // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
             addresses = geocoder.getFromLocation(
                 latitude, longitude, 1
@@ -103,45 +132,26 @@ class SecondFragment : Fragment() {
             val knownName: String = addresses[0].getFeatureName() // Only if available else return NULL
 
             val EntryText = EditEntry.text
+        }*/
         }
-
-        view.findViewById<Button>(R.id.button_back).setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-        }
-    }
-
-//Todo: Fix this
-    val entry = EntryEntity
-    private fun updateList() {
-        doAsync {
-            val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "entry-list.db").build()
-
-            db.entryDao().insert(entry)
-            db.close()
-        }
-    }
-}
-
-/** @Database(entities = arrayOf(UserEntity::class), version = 1)
-abstract class UserDb : RoomDatabase() {
-
-    abstract fun userDao(): UserDao
 
     companion object {
-        private var INSTANCE: UserDb? = null
+        private var instance: MainActivity? = null
 
-        fun getInstance(context: Context): UserDb? {
-            if (INSTANCE == null) {
-                synchronized(UserDb::class) {
-                    INSTANCE = Room.databaseBuilder(context.applicationContext, UserDb::class.java, "user.db").build()
-                }
-            }
-            return INSTANCE
-        }
-
-        fun destroyInstance() {
-            INSTANCE = null
+        fun applicationContext() : Context {
+            return instance!!.applicationContext
         }
     }
 }
- */
+
+
+    /*
+    val entry = this.EditContent
+    private fun updateList(EditContent: String) {
+        doAsync {
+            val db = Room.databaseBuilder(applicationContext(), AppDatabase::class.java, "entry-items").build()
+
+            db.entryDao().insert(EditContent)
+            db.close()
+        }
+    }*/

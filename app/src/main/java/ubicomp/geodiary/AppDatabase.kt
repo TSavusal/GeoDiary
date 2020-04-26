@@ -4,8 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.Room.*
 
-@Database(entities = [EntryEntity::class], version = 1, exportSchema = false)
+@Database(entities = arrayOf(EntryEntity::class), version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun entryDao(): EntryDao companion object {
         @Volatile private var instance: AppDatabase? = null
@@ -16,7 +17,7 @@ abstract class AppDatabase : RoomDatabase() {
         }
 
         private fun buildDatabase(context: Context) = Room.databaseBuilder(context,
-            AppDatabase::class.java, "entry-list.db")
+            AppDatabase::class.java, "entry-items.db")
             .build()
     }
 }
